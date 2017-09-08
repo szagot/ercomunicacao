@@ -1,26 +1,10 @@
-{% extends "default.twig" %}
-{% block pageId %}info{% endblock %}
+<style type="text/css">
+    {{ css | raw }}
 
-{% block title %}PHP Info | {{ parent() }}{% endblock %}
-
-{% block css %}
-    <style type="text/css">
-        {{ css | raw }}
-
-        body {
-            font-size: 16px;
-            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-            line-height: 20px;
-        }
-    </style>
-{% endblock %}
-
-{% block content %}
-    {{ info | raw }}
-{% endblock %}
-
-{% block tmwxdcss %}{% endblock %}
-{% block bootstrapcss %}{% endblock %}
-{% block bootstrapjs %}{% endblock %}
-{% block functionsjs %}{% endblock %}
-{% block jquery %}{% endblock %}
+    body {
+        font-size: 16px;
+        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+        line-height: 20px;
+    }
+</style>
+{{ info | raw }}
