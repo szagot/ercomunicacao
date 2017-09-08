@@ -1,0 +1,40 @@
+{
+  "name": "TMWxD",
+  "keywords": [
+    "tmw",
+    "e-commerce",
+    "plataforma",
+    "php"
+  ],
+  "description": "Plataforma da TMW E-commerce Solutions",
+  "homepage": "http://tmw.com.br",
+  "authors": [
+    {
+      "name": "Daniel Bispo",
+      "email": "szagot@gmail.com",
+      "homepage": "http://tmw.com.br/quem-somos/",
+      "role": "Lead Developer"
+    },
+    {
+      "name": "Kamile Pimenta",
+      "email": "kamile@tmw.com.br",
+      "homepage": "http://tmw.com.br/quem-somos/",
+      "role": "Contributors"
+    }
+  ],
+  "require": {
+    "php": "^7.0",
+    "twig/twig": "~2.0",
+    "szagot/config": "dev-master",
+    "szagot/impulse": "~1.0",
+    "doctrine/orm": "*",
+    "guzzlehttp/guzzle": "^6.2",
+    "phpmailer/phpmailer": "^5.2",
+    "intervention/imagecache": "^2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "EP\\": "src/EP/"
+    }
+  }
+}

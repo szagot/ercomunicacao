@@ -1,0 +1,60 @@
+{% extends "default.twig" %}
+{% block pageId %}login{% endblock %}
+{% block bodyClass %}gray-bg{% endblock %}
+
+{% block title %}Login | {{ parent() }}{% endblock %}
+
+{% block html %}
+    <div class="middle-box loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">IN+</h1>
+
+            </div>
+
+            <form class="form-signin" action="{{ url('login') }}" method="post">
+                <!-- Para qual página deve retornar... Manter assim! -->
+                <input type="hidden" name="return" value="{{ return }}">
+                <!-- Usuário -->
+                <div class="input-group {% if not permiteAcesso %}has-error has-feedback{% endif %}">
+                    <label for="code" class="input-group-addon">
+                        <i class="fa fa-user fa-lg"></i>
+                    </label>
+                    <input type="text" id="code" name="code" class="form-control" placeholder="Usuário" required=""
+                           autofocus="" value="{{ getParam('code') }}">
+                </div>
+                <!-- Senha -->
+                <div class="input-group {% if not permiteAcesso %}has-error has-feedback{% endif %}">
+                    <label for="pass" class="input-group-addon">
+                        <i class="fa fa-lock fa-lg"></i>
+                    </label>
+                    <input type="password" id="pass" name="pass" class="form-control" placeholder="Senha" required=""
+                           value="{{ getParam('pass') }}">
+                </div>
+                <!-- Manter Conectado -->
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="longTime" name="longTime" value="1"> Manter Conectado
+                    </label>
+                </div>
+                <!-- Botão -->
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    <i class="fa fa-sign-in"></i>
+                    Acessar
+                </button>
+
+                <a class="recover-link" href="#">Esqueci minha senha...</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script type="text/javascript">
+        {% if not permiteAcesso %}
+        MessageDanger('O usuário não existe ou a senha está errada', 'Acesso Negado');
+        {% endif %}
+    </script>
+{% endblock %}

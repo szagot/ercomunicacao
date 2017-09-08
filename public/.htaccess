@@ -1,0 +1,22 @@
+RewriteEngine On
+
+# Arquivos de permissão direta
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^.*\.(jpg|jpeg|css|js|gif|png|eot|svg|ttf|otf|sfd|woff2?|ico|xml|json)$ [NC]
+
+# Envia para o index.php
+RewriteRule ^/?.*$ index.php
+
+#################### HostDime ########################
+# Permite acesso às APIs via AJAX e Controle de cache
+<IfModule mod_headers.c>
+    # API's
+    Header set Access-Control-Allow-Origin "*"
+    Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+    Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+    # Cache de 1 Semana
+    <FilesMatch "\.(jpg|jpeg|css|js|gif|png|eot|svg|ttf|otf|sfd|woff2?|ico|xml|json)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+</IfModule>
+#################### HostDime ########################

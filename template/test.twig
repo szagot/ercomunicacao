@@ -1,0 +1,28 @@
+{% extends "default.twig" %}
+{% block pageId %}test{% endblock %}
+
+{% block title %}Home | {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    <p class="links">
+        <a href="{{ url('home') }}">Home</a> |
+        <a href="{{ url('logout') }}">Sair</a> |
+        <a href="{{ url('info') }}" target="_blank">PHP Info</a> |
+    </p>
+
+    <p>
+        Bem vindo {{ user.name }} | Sessão {{ session }}
+    </p>
+
+    <p class="well well-sm">
+        <samp>• <b>URI atual.:</b> /{{ uri }}</samp><br>
+        <samp>• <b>Método....:</b> {{ metodo }}</samp><br>
+        <samp>• <b>Param ID..:</b> {{ params['id'] }}</samp><br>
+        <samp>• <b>Param Name:</b> {{ params['name'] }}</samp><br>
+        <samp>• <b>Param Tel.:</b> {{ params['tel'] }}</samp>
+    </p>
+
+    <b>{{ sessionEnd }}</b>
+
+{% endblock %}
