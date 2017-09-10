@@ -23,15 +23,15 @@
             <tbody>
             {% for brand in brands %}
                 <tr>
-                    <td>{{ brand.id }}</td>
-                    <td><input name="name[{{ brand.id }}]" value="{{ brand.name }}"></td>
+                    <td><label for="name_{{ brand.id }}">{{ brand.id }}</label></td>
+                    <td><input name="name[{{ brand.id }}]" id="name_{{ brand.id }}" value="{{ brand.name }}"></td>
                 </tr>
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
-                <td>Nova Marca</td>
-                <td><input name="name[new_brand]" value=""></td>
+                <td><label for="new_brand">Nova Marca</label></td>
+                <td><input name="name[new_brand]" id="new_brand" value=""></td>
             </tr>
             </tfoot>
         </table>
