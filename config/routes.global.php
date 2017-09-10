@@ -25,20 +25,22 @@
  */
 
 use EP\Action\Info;
+use EP\Action\Products\BrandAction;
+use EP\Action\Products\ProductAction;
 use EP\Action\Tests;
 use EP\Action\Login;
 use EP\Action\Logout;
 
 return [
     // Login
-    'login'                    => [
+    'login'    => [
         'path'    => '/login',
         'action'  => Login::class,
         'methods' => ['GET', 'POST'],
         'type'    => 'HTML',
     ],
     // Logout
-    'logout'                   => [
+    'logout'   => [
         'path'    => '/logout',
         'action'  => Logout::class,
         'methods' => ['GET'],
@@ -46,7 +48,7 @@ return [
     ],
 
     // PHP Info - Apenas Depuração
-    'info'                     => [
+    'info'     => [
         'path'    => '/info',
         'action'  => Info::class,
         'methods' => ['GET'],
@@ -55,10 +57,28 @@ return [
     ],
 
     // Home
-    'home'                     => [
+    'home'     => [
         'path'    => '/',
         'action'  => Tests::class,
         'methods' => ['GET'],
+        'type'    => 'HTML',
+        'auth'    => 'LOGIN',
+    ],
+
+    // Produtos
+    'products' => [
+        'path'    => '/products',
+        'action'  => ProductAction::class,
+        'methods' => ['GET', 'POST'],
+        'type'    => 'HTML',
+        'auth'    => 'LOGIN',
+    ],
+
+    // Marcas
+    'brands'   => [
+        'path'    => '/products/brands',
+        'action'  => BrandAction::class,
+        'methods' => ['GET', 'POST'],
         'type'    => 'HTML',
         'auth'    => 'LOGIN',
     ],

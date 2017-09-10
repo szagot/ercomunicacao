@@ -9,7 +9,7 @@
 namespace EP\Entities\Products;
 
 /**
- * @Entity(repositoryClass="EP\Repositories\Products\Brand")
+ * @Entity(repositoryClass="EP\Repositories\Products\BrandRepository")
  * @Table(name="Brands")
  */
 class Brand

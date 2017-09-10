@@ -1,0 +1,42 @@
+{% extends "default.twig" %}
+{% block pageId %}brands{% endblock %}
+
+{% block title %}Marcas | {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    {% if msg is not empty %}
+        <div class="alert alert-{{ erro ? 'danger' : 'success' }}">
+            {{ msg }}
+        </div>
+    {% endif %}
+
+    <form action="" method="post">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Marca</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for brand in brands %}
+                <tr>
+                    <td>{{ brand.id }}</td>
+                    <td><input name="name[{{ brand.id }}]" value="{{ brand.name }}"></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td><input name="name[new_brand]" value=""></td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <button class="btn btn-primary" type="submit">Salvar</button>
+    </form>
+
+{% endblock %}
