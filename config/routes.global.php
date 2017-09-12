@@ -27,6 +27,7 @@
 use EP\Action\Info;
 use EP\Action\Products\BrandAction;
 use EP\Action\Products\ProductAction;
+use EP\Action\Users\UserAction;
 use EP\Action\Tests;
 use EP\Action\Login;
 use EP\Action\Logout;
@@ -61,6 +62,15 @@ return [
         'path'    => '/',
         'action'  => Tests::class,
         'methods' => ['GET'],
+        'type'    => 'HTML',
+        'auth'    => 'LOGIN',
+    ],
+
+    // Usuários
+    'users' => [
+        'path'    => '/users',
+        'action'  => UserAction::class,
+        'methods' => ['GET', 'POST'],
         'type'    => 'HTML',
         'auth'    => 'LOGIN',
     ],

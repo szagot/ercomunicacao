@@ -1,0 +1,83 @@
+{% extends "default.twig" %}
+{% block pageId %}users{% endblock %}
+
+{% block title %}Usuários | {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    {% if msg is not empty %}
+        <div class="alert alert-{{ erro ? 'danger' : 'success' }}">
+            {{ msg }}
+        </div>
+    {% endif %}
+
+    <form action="" method="post">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Nome</th>
+                <th>Senha</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>
+                        <input name="code[{{ user.code }}]" id="code_{{ user.code }}" value="{{ user.code }}">
+                    </td>
+                    <td>
+                        <input name="name[{{ user.code }}]" id="name_{{ user.code }}" value="{{ user.name }}">
+                    </td>
+                    <td>
+                        <input type="password" name="pass[{{ user.code }}]" id="pass_{{ user.code }}" value="">
+                        <button type="button" class="btn btn-default btn-xs"
+                                onclick="seePass('pass_{{ user.code }}', this)"
+                                title="Ver/Ocultar Senha"><i class="glyphicon glyphicon-eye-close"></i></button>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>
+                    <input name="code[new_user]" id="code_new_user" value="" placeholder="Novo Usuário">
+                </td>
+                <td>
+                    <input name="name[new_user]" id="name_new_user" value="">
+                </td>
+                <td>
+                    <input type="password" name="pass[new_user]" id="pass_new_user" value="">
+                    <button type="button" class="btn btn-default btn-xs" onclick="seePass('pass_new_user', this)"
+                            title="Ver/Ocultar Senha"><i class="glyphicon glyphicon-eye-close"></i></button>
+                </td>
+                <td>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <button class="btn btn-primary" type="submit">Salvar</button>
+    </form>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        function seePass(id, element) {
+            var tipo = document.getElementById(id);
+            if (tipo.type === 'password') {
+                tipo.type = 'text';
+                element.innerHTML = '<i class=\'glyphicon glyphicon-eye-open\'></i>';
+            } else {
+                tipo.type = 'password';
+                element.innerHTML = '<i class=\'glyphicon glyphicon-eye-close\'></i>';
+            }
+        }
+    </script>
+{% endblock %}

@@ -28,40 +28,40 @@ class BrandAction implements ActionInterface
     {
         $msg = null;
         $erro = false;
-        /** @var BrandRepository $brandRepo */
-        $brandRepo = Kernel::em()->getRepository(Brand::class);
+        /** @var BrandRepository $repo */
+        $repo = Kernel::em()->getRepository(Brand::class);
 
         if (Kernel::uri()->getMethod() == 'POST') {
-            $brandsPost = filter_input(INPUT_POST, 'name', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+            $postName = filter_input(INPUT_POST, 'name', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-            if (!empty($brandsPost)) {
-                foreach ($brandsPost as $id => $brand) {
+            if (!empty($postName)) {
+                foreach ($postName as $id => $brand) {
                     if (empty($brand)) {
                         continue;
                     }
 
-                    // É cadstro?
+                    // É cadastro?
                     if ($id == 'new_brand') {
                         $thisBrand = new Brand();
                         $thisBrand->setName($brand);
-                        if (!$brandRepo->create($thisBrand)) {
+                        if (!$repo->create($thisBrand)) {
                             $erro = true;
                         }
                     } else {
                         /** @var Brand $thisBrand */
-                        $thisBrand = $brandRepo->find($id);
+                        $thisBrand = $repo->find($id);
                         $thisBrand->setName($brand);
-                        if (!$brandRepo->update($thisBrand)) {
+                        if (!$repo->update($thisBrand)) {
                             $erro = true;
                         }
                     }
-
-                    $msg = $erro ? 'Não foi possível atualizar todas as marcas' : 'Marcas atualizadas com sucesso';
                 }
+
+                $msg = $erro ? 'Não foi possível atualizar todas as marcas' : 'Marcas atualizadas com sucesso';
             }
         }
 
-        $brands = $brandRepo->findAll('name');
+        $brands = $repo->findAll('name');
 
         echo Kernel::template()->render('products/brands.twig', [
             'msg'    => $msg,
