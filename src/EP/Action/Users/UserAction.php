@@ -39,10 +39,10 @@ class UserAction implements ActionInterface
                 /** @var User $thisBrand */
                 $thisBrand = $repo->find($exclude);
                 if ($repo->delete($thisBrand)) {
-                    $msg = 'Marca excluída com sucesso';
+                    $msg = 'Usuário excluído com sucesso';
                 } else {
                     $erro = true;
-                    $msg = 'Não foi possível excluir a marca no momento';
+                    $msg = 'Não foi possível excluir o usuário no momento';
                 }
 
             } else {

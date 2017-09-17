@@ -39,9 +39,9 @@
                     </td>
                     <td class="actions">
                         {% if user.code != userLogged.code %}
-                        <button type="button" class="btn btn-danger" onclick="excludeReg('{{ user.code }}')">
-                            <i class="fa fa-trash"></i>
-                        </button>
+                            <button type="button" class="btn btn-danger" onclick="excludeReg('{{ user.code }}')">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         {% endif %}
                     </td>
                 </tr>
