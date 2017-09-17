@@ -807,8 +807,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 }
 
 .btn-primary {
-    background-color: #1ab394;
-    border-color: #1ab394;
+    background-color: #930606;
+    border-color: #930606;
     color: #FFFFFF;
 }
 
@@ -821,8 +821,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 .btn-primary:active:hover,
 .btn-primary.active:hover,
 .btn-primary.active:focus {
-    background-color: #18a689;
-    border-color: #18a689;
+    background-color: #00b500;
+    border-color: #00b500;
     color: #FFFFFF;
 }
 
@@ -5715,10 +5715,8 @@ body.mini-navbar.fixed-sidebar .logo-element {
 }
 
 .logo-name {
-    color: #e6e6e6;
-    font-size: 180px;
-    font-weight: 800;
-    letter-spacing: -10px;
+    display: block;
+    text-align: center;
     margin-bottom: 0;
 }
 
