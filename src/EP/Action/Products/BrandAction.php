@@ -32,32 +32,47 @@ class BrandAction implements ActionInterface
         $repo = Kernel::em()->getRepository(Brand::class);
 
         if (Kernel::uri()->getMethod() == 'POST') {
-            $postName = filter_input(INPUT_POST, 'name', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+            $exclude = filter_input(INPUT_POST, 'exclude', FILTER_VALIDATE_INT);
+            if (!empty($exclude) && $exclude > 0) {
+                //É pra excluir?
 
-            if (!empty($postName)) {
-                foreach ($postName as $id => $brand) {
-                    if (empty($brand)) {
-                        continue;
-                    }
-
-                    // É cadastro?
-                    if ($id == 'new_brand') {
-                        $thisBrand = new Brand();
-                        $thisBrand->setName($brand);
-                        if (!$repo->create($thisBrand)) {
-                            $erro = true;
-                        }
-                    } else {
-                        /** @var Brand $thisBrand */
-                        $thisBrand = $repo->find($id);
-                        $thisBrand->setName($brand);
-                        if (!$repo->update($thisBrand)) {
-                            $erro = true;
-                        }
-                    }
+                /** @var Brand $thisBrand */
+                $thisBrand = $repo->find($exclude);
+                if ($repo->delete($thisBrand)) {
+                    $msg = 'Marca excluída com sucesso';
+                } else {
+                    $erro = true;
+                    $msg = 'Não foi possível excluir a marca no momento';
                 }
+            } else {
+                // É pra alterar?
+                $postName = filter_input(INPUT_POST, 'name', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-                $msg = $erro ? 'Não foi possível atualizar todas as marcas' : 'Marcas atualizadas com sucesso';
+                if (!empty($postName)) {
+                    foreach ($postName as $id => $brand) {
+                        if (empty($brand)) {
+                            continue;
+                        }
+
+                        // É cadastro?
+                        if ($id == 'new_brand') {
+                            $thisBrand = new Brand();
+                            $thisBrand->setName($brand);
+                            if (!$repo->create($thisBrand)) {
+                                $erro = true;
+                            }
+                        } else {
+                            /** @var Brand $thisBrand */
+                            $thisBrand = $repo->find($id);
+                            $thisBrand->setName($brand);
+                            if (!$repo->update($thisBrand)) {
+                                $erro = true;
+                            }
+                        }
+                    }
+
+                    $msg = $erro ? 'Não foi possível atualizar todas as marcas' : 'Marcas atualizadas com sucesso';
+                }
             }
         }
 

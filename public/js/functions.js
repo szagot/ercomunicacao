@@ -6,11 +6,11 @@
  * Ativa ou remove a tela de espera
  * @param show boolean
  */
-function waitScreen( show ) {
-    if ( show ) {
-        $( '#waitScreen' ).fadeIn( 500 );
+function waitScreen(show) {
+    if (show) {
+        $('#waitScreen').fadeIn(500);
     } else {
-        $( '#waitScreen' ).fadeOut( 500 );
+        $('#waitScreen').fadeOut(500);
     }
 }
 
@@ -18,35 +18,35 @@ function waitScreen( show ) {
  * Abre a imagem na tela de wait (modal box)
  * @param src Caminho da imagem
  */
-function modalImg( src ) {
-    var $waitScreen = $( '#waitScreen' );
-    var modalBox    = $waitScreen.find( '.modalImgBox' );
+function modalImg(src) {
+    var $waitScreen = $('#waitScreen');
+    var modalBox = $waitScreen.find('.modalImgBox');
 
     // Ação de click
-    $waitScreen.bind( 'click', function () {
+    $waitScreen.bind('click', function () {
         // Oculta a imagem e a remove
-        modalBox.hide( 500, function () {
-            modalBox.empty().removeClass( 'border' );
-        } );
+        modalBox.hide(500, function () {
+            modalBox.empty().removeClass('border');
+        });
         // Oculta a wait screen e remove a ação de click
         waitScreen();
-        $waitScreen.unbind( 'click' );
-    } );
+        $waitScreen.unbind('click');
+    });
 
     // Adiciona a imagem ao Modalbox
-    modalBox.append( '<img  class="img" src="' + src + '" alt="Imagem Grande"/>' );
+    modalBox.append('<img  class="img" src="' + src + '" alt="Imagem Grande"/>');
 
     // Ativa a wait screen
-    waitScreen( true );
+    waitScreen(true);
 
     // Carrega a imagem via ajax para garantir que esta será carregada antes de ser mostrada
-    $.get( src, function () {
+    $.get(src, function () {
         // Carrega a imagem
-        modalBox.find( '.img' ).fadeIn( 500, function () {
+        modalBox.find('.img').fadeIn(500, function () {
             // Mostra o modal
-            modalBox.show( 500 );
-        } )
-    } );
+            modalBox.show(500);
+        })
+    });
 }
 
 /**
@@ -54,21 +54,21 @@ function modalImg( src ) {
  *
  * @param elementId ID do elemento (apenas o texto, sem a hashtag #)
  */
-function selectText( elementId ) {
-    var doc  = document,
-        text = doc.getElementById( elementId ),
+function selectText(elementId) {
+    var doc = document,
+        text = doc.getElementById(elementId),
         range,
         selection;
-    if ( doc.body.createTextRange ) {
+    if (doc.body.createTextRange) {
         range = document.body.createTextRange();
-        range.moveToElementText( text );
+        range.moveToElementText(text);
         range.select();
-    } else if ( window.getSelection ) {
+    } else if (window.getSelection) {
         selection = window.getSelection();
-        range     = document.createRange();
-        range.selectNodeContents( text );
+        range = document.createRange();
+        range.selectNodeContents(text);
         selection.removeAllRanges();
-        selection.addRange( range );
+        selection.addRange(range);
     }
 }
 
@@ -76,10 +76,10 @@ function selectText( elementId ) {
 /**
  * Transforma o HTML em texto simples
  */
-function stripHTML( dirtyString ) {
-    var container = document.createElement( 'div' );
-    var text      = document.createTextNode( dirtyString );
-    container.appendChild( text );
+function stripHTML(dirtyString) {
+    var container = document.createElement('div');
+    var text = document.createTextNode(dirtyString);
+    container.appendChild(text);
     return container.innerHTML;
 }
 
@@ -93,14 +93,14 @@ function stripHTML( dirtyString ) {
  * @param btnExtraCallback Callback do botão extra
  * @param type Tipo do alerta
  */
-function Message( msg, title, btnExtra, btnExtraCallback, type ) {
+function Message(msg, title, btnExtra, btnExtraCallback, type) {
 
-    var modalId      = '#modalMsg';
+    var modalId = '#modalMsg';
     var modalIdTitle = modalId + 'Title';
 
     // Verifica se já foi criado um modal
-    var modal = $( modalId );
-    if ( modal.length ) {
+    var modal = $(modalId);
+    if (modal.length) {
         modal.remove();
     }
 
@@ -110,12 +110,12 @@ function Message( msg, title, btnExtra, btnExtraCallback, type ) {
         '" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="' + modalIdTitle + '">'
     );
 
-    if ( !type || !type.match( /^(success|primary|danger|warning|info)$/ ) ) {
+    if (!type || !type.match(/^(success|primary|danger|warning|info)$/)) {
         type = 'primary';
     }
 
     var icon = '';
-    switch ( type ) {
+    switch (type) {
         case 'info':
             icon = 'glyphicon glyphicon-exclamation-sign';
             break;
@@ -131,7 +131,7 @@ function Message( msg, title, btnExtra, btnExtraCallback, type ) {
     }
 
     var text = 'text-' + type;
-    if ( type === 'primary' ) {
+    if (type === 'primary') {
         text = '';
     }
 
@@ -150,34 +150,37 @@ function Message( msg, title, btnExtra, btnExtraCallback, type ) {
     );
 
     // Adiciona callbacks
-    if ( btnExtra && btnExtraCallback ) {
-        modal.find( '.modal-footer' ).append(
+    if (btnExtra && btnExtraCallback) {
+        modal.find('.modal-footer').append(
             '<button type="button" id="btnExtra" class="btn btn-' + type + '">' + btnExtra + '</button>'
         );
-        modal.find( '#btnExtra' ).click( btnExtraCallback ).click( function () {
-            modal.modal( 'hide' );
-        } );
-        modal.find( '#btnOk' ).text( 'Cancelar' ).removeClass( 'btn-' + type ).addClass( 'btn-default' );
+        modal.find('#btnExtra').click(btnExtraCallback).click(function () {
+            modal.modal('hide');
+        });
+        modal.find('#btnOk').text('Cancelar').removeClass('btn-' + type).addClass('btn-default');
     }
 
-    $( 'body' ).append( modal );
-    modal.modal( 'show' ).on( 'shown.bs.modal', function () {
-        modal.find( '#btnOk' ).focus();
-    } );
+    $('body').append(modal);
+    modal.modal('show').on('shown.bs.modal', function () {
+        modal.find('#btnOk').focus();
+    });
 }
 
 /**
  * Atalhos para Message
  */
-function MessageInfo( msg, title, btnExtra, btnExtraCallback ) {
-    Message( msg, title, btnExtra, btnExtraCallback, 'info' );
+function MessageInfo(msg, title, btnExtra, btnExtraCallback) {
+    Message(msg, title, btnExtra, btnExtraCallback, 'info');
 }
-function MessageWarning( msg, title, btnExtra, btnExtraCallback ) {
-    Message( msg, title, btnExtra, btnExtraCallback, 'warning' );
+
+function MessageWarning(msg, title, btnExtra, btnExtraCallback) {
+    Message(msg, title, btnExtra, btnExtraCallback, 'warning');
 }
-function MessageSuccess( msg, title, btnExtra, btnExtraCallback ) {
-    Message( msg, title, btnExtra, btnExtraCallback, 'success' );
+
+function MessageSuccess(msg, title, btnExtra, btnExtraCallback) {
+    Message(msg, title, btnExtra, btnExtraCallback, 'success');
 }
-function MessageDanger( msg, title, btnExtra, btnExtraCallback ) {
-    Message( msg, title, btnExtra, btnExtraCallback, 'danger' );
+
+function MessageDanger(msg, title, btnExtra, btnExtraCallback) {
+    Message(msg, title, btnExtra, btnExtraCallback, 'danger');
 }

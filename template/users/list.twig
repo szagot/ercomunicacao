@@ -6,12 +6,14 @@
 {% block content %}
 
     {% if msg is not empty %}
-        <div class="alert alert-{{ erro ? 'danger' : 'success' }}">
+        <div class="alert alert-{{ erro ? 'danger' : 'success' }} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
             {{ msg }}
         </div>
     {% endif %}
 
-    <form action="" method="post">
+    <form id="form" action="" method="post">
+        <input type="hidden" name="exclude" id="exclude" value="">
 
         <table class="table">
             <thead>
@@ -19,15 +21,13 @@
                 <th>Usuário</th>
                 <th>Nome</th>
                 <th>Senha</th>
-                <th></th>
+                <th class="actions"></th>
             </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>
-                        <input name="code[{{ user.code }}]" id="code_{{ user.code }}" value="{{ user.code }}">
-                    </td>
+                    <td>{{ user.code }}</td>
                     <td>
                         <input name="name[{{ user.code }}]" id="name_{{ user.code }}" value="{{ user.name }}">
                     </td>
@@ -35,10 +35,12 @@
                         <input type="password" name="pass[{{ user.code }}]" id="pass_{{ user.code }}" value="">
                         <button type="button" class="btn btn-default btn-xs"
                                 onclick="seePass('pass_{{ user.code }}', this)"
-                                title="Ver/Ocultar Senha"><i class="glyphicon glyphicon-eye-close"></i></button>
+                                title="Ver/Ocultar Senha"><i class="fa fa-eye-slash fa-lg"></i></button>
                     </td>
-                    <td>
-
+                    <td class="actions">
+                        <button type="button" class="btn btn-danger" onclick="excludeReg('{{ user.code }}')">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
             {% endfor %}
@@ -46,7 +48,7 @@
             <tfoot>
             <tr>
                 <td>
-                    <input name="code[new_user]" id="code_new_user" value="" placeholder="Novo Usuário">
+                    <input name="code" id="code_new_user" value="" placeholder="Novo Usuário">
                 </td>
                 <td>
                     <input name="name[new_user]" id="name_new_user" value="">
@@ -54,15 +56,14 @@
                 <td>
                     <input type="password" name="pass[new_user]" id="pass_new_user" value="">
                     <button type="button" class="btn btn-default btn-xs" onclick="seePass('pass_new_user', this)"
-                            title="Ver/Ocultar Senha"><i class="glyphicon glyphicon-eye-close"></i></button>
+                            title="Ver/Ocultar Senha"><i class="fa fa-eye-slash fa-lg"></i></button>
                 </td>
-                <td>
-                </td>
+                <td class="actions"></td>
             </tr>
             </tfoot>
         </table>
 
-        <button class="btn btn-primary" type="submit">Salvar</button>
+        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Salvar</button>
     </form>
 
 {% endblock %}
@@ -73,11 +74,18 @@
             var tipo = document.getElementById(id);
             if (tipo.type === 'password') {
                 tipo.type = 'text';
-                element.innerHTML = '<i class=\'glyphicon glyphicon-eye-open\'></i>';
+                element.innerHTML = '<i class=\'fa fa-eye fa-lg\'></i>';
             } else {
                 tipo.type = 'password';
-                element.innerHTML = '<i class=\'glyphicon glyphicon-eye-close\'></i>';
+                element.innerHTML = '<i class=\'fa fa-eye-slash fa-lg\'></i>';
             }
+        }
+
+        function excludeReg(id) {
+            MessageDanger('Deseja realmente excluir o registro de ID ' + id + '?', 'Excluir', 'Excluir', function () {
+                $('#exclude').val(id);
+                $('#form').submit();
+            });
         }
     </script>
 {% endblock %}

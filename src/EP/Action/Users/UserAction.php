@@ -32,47 +32,62 @@ class UserAction implements ActionInterface
         $repo = Kernel::em()->getRepository(User::class);
 
         if (Kernel::uri()->getMethod() == 'POST') {
-            $postCode = filter_input(INPUT_POST, 'code', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-            $postName = filter_input(INPUT_POST, 'name', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-            $postPass = filter_input(INPUT_POST, 'pass', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+            $exclude = filter_input(INPUT_POST, 'exclude');
+            if (!empty($exclude)) {
+                //É pra excluir?
 
-            if (!empty($postName)) {
-                foreach ($postCode as $code) {
-                    if (empty($code) && empty($postName[ $code ]) && empty($postPass[ $code ])) {
-                        continue;
-                    }
-
-                    // É cadastro?
-                    if ($code == 'new_user') {
-                        if (empty($code) || empty($postName[ $code ]) || empty($postPass[ $code ])) {
-                            $erro = true;
-                            continue;
-                        }
-                        $thisUser = new User();
-                        $thisUser->setCode($code);
-                        $thisUser->setName($postName[ $code ]);
-                        $thisUser->setPass($postPass[ $code ]);
-                        if (!$repo->create($thisUser)) {
-                            $erro = true;
-                        }
-                    } else {
-                        if (empty($code) || empty($postName[ $code ])) {
-                            $erro = true;
-                            continue;
-                        }
-                        /** @var User $thisUser */
-                        $thisUser = $repo->find($code);
-                        $thisUser->setName($postName[ $code ]);
-                        if (!empty($postPass[ $code ])) {
-                            $thisUser->setPass($postPass[ $code ]);
-                        }
-                        if (!$repo->update($thisUser)) {
-                            $erro = true;
-                        }
-                    }
+                /** @var Brand $thisBrand */
+                $thisBrand = $repo->find($exclude);
+                if ($repo->delete($thisBrand)) {
+                    $msg = 'Marca excluída com sucesso';
+                } else {
+                    $erro = true;
+                    $msg = 'Não foi possível excluir a marca no momento';
                 }
 
-                $msg = $erro ? 'Não foi possível atualizar todos os usuários' : 'Usuários atualizados com sucesso';
+            } else {
+                $postName = filter_input(INPUT_POST, 'name', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+                $postPass = filter_input(INPUT_POST, 'pass', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+
+                if (!empty($postName)) {
+                    foreach ($postName as $code => $name) {
+                        if (empty($name) && empty($postPass[$code])) {
+                            continue;
+                        }
+
+                        // É cadastro?
+                        if ($code == 'new_user') {
+                            $thisCode = filter_input(INPUT_POST, 'code');
+                            if (empty($thisCode) || empty($name) || empty($postPass[$code])) {
+                                $erro = true;
+                                continue;
+                            }
+                            $thisUser = new User();
+                            $thisUser->setCode($thisCode);
+                            $thisUser->setName($name);
+                            $thisUser->setPass($postPass[$code]);
+                            if (!$repo->create($thisUser)) {
+                                $erro = true;
+                            }
+                        } else {
+                            if (empty($code) || empty($postName[$code])) {
+                                $erro = true;
+                                continue;
+                            }
+                            /** @var User $thisUser */
+                            $thisUser = $repo->find($code);
+                            $thisUser->setName($name);
+                            if (!empty($postPass[$code])) {
+                                $thisUser->setPass($postPass[$code]);
+                            }
+                            if (!$repo->update($thisUser)) {
+                                $erro = true;
+                            }
+                        }
+                    }
+
+                    $msg = $erro ? 'Não foi possível atualizar todos os usuários' : 'Usuários atualizados com sucesso';
+                }
             }
         }
 
