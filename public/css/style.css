@@ -5747,6 +5747,11 @@ body.mini-navbar.fixed-sidebar .logo-element {
     margin-right: 160px;
 }
 
+.recover-link {
+    display: block;
+    margin-top: 8px;
+}
+
 /* DASBOARD */
 .dashboard-header {
     border-top: 0;
