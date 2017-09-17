@@ -9,7 +9,7 @@ return [
     'driverOptions' => [
         1002 => "SET NAMES 'UTF8'",
     ],
-    'dbname'        => 'ercomunicao',
+    'dbname'        => 'ercomunicacao',
     'host'          => 'localhost',
     'user'          => '',
     'password'      => '',
