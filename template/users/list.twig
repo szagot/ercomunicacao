@@ -38,9 +38,11 @@
                                 title="Ver/Ocultar Senha"><i class="fa fa-eye-slash fa-lg"></i></button>
                     </td>
                     <td class="actions">
+                        {% if user.code != userLogged.code %}
                         <button type="button" class="btn btn-danger" onclick="excludeReg('{{ user.code }}')">
                             <i class="fa fa-trash"></i>
                         </button>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

@@ -36,7 +36,7 @@ class UserAction implements ActionInterface
             if (!empty($exclude)) {
                 //É pra excluir?
 
-                /** @var Brand $thisBrand */
+                /** @var User $thisBrand */
                 $thisBrand = $repo->find($exclude);
                 if ($repo->delete($thisBrand)) {
                     $msg = 'Marca excluída com sucesso';
@@ -97,6 +97,7 @@ class UserAction implements ActionInterface
             'msg'   => $msg,
             'erro'  => $erro,
             'users' => $users,
+            'userLogged' => Kernel::session()->user
         ]);
     }
 }

@@ -21,10 +21,8 @@ class Tests implements ActionInterface
         ////////////////////////////////
 
         // Exemplo pegando usuário
-        /** @var UserRepository $userRepo */
-        $userRepo = Kernel::em()->getRepository(User::class);
         /** @var User $user */
-        $user = $userRepo->find('szagot');
+        $user = Kernel::session()->user;
 
         echo Kernel::template()->render('test.twig', [
             'uri'        => Kernel::uri()->getUri(),
