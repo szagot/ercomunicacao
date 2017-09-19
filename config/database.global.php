@@ -9,8 +9,8 @@ return [
     'driverOptions' => [
         1002 => "SET NAMES 'UTF8'",
     ],
-    'dbname'        => 'ercomunicacao',
+    'dbname'        => 'id2966761_ercomunicacao',
     'host'          => 'localhost',
-    'user'          => '',
-    'password'      => '',
+    'user'          => 'id2966761_ercomunicacao',
+    'password'      => '3RC0mun1c4c40',
 ];
