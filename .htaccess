@@ -1,10 +1,10 @@
 # Apenas para quando não for possível fazer a instalação correta
 # Descomente as próximas linhas
 
-#RewriteEngine On
-#RewriteBase /My-Project/
+RewriteEngine On
+RewriteBase /
 
-#RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
-#RewriteRule ^ %1 [L,NE,R=302]
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
 
-#RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
