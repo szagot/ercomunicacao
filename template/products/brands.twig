@@ -27,7 +27,7 @@
             {% for brand in brands %}
                 <tr>
                     <td><label for="name_{{ brand.id }}">{{ brand.id }}</label></td>
-                    <td><input name="name[{{ brand.id }}]" id="name_{{ brand.id }}" value="{{ brand.name }}"></td>
+                    <td><input name="name[{{ brand.id }}]" id="name_{{ brand.id }}" value="{{ brand.name }}" class="form-control"></td>
                     <td class="actions">
                         <button type="button" class="btn btn-danger" onclick="excludeReg('{{ brand.id }}')">
                             <i class="fa fa-trash"></i>
@@ -39,7 +39,7 @@
             <tfoot>
             <tr>
                 <td></td>
-                <td><input name="name[new_brand]" id="new_brand" value="" placeholder="Nova Marca"></td>
+                <td><input name="name[new_brand]" id="new_brand" value="" placeholder="Nova Marca" class="form-control"></td>
                 <td class="actions"></td>
             </tr>
             </tfoot>

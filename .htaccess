@@ -2,6 +2,11 @@
 # Descomente as próximas linhas
 
 RewriteEngine On
+
+# WP
+RewriteRule ^blog/?(.*)$ blog/$1 [NC,L]
+
+# Sistema de Estoque
 RewriteBase /
 
 RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]

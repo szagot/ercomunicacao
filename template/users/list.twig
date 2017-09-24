@@ -29,13 +29,17 @@
                 <tr>
                     <td>{{ user.code }}</td>
                     <td>
-                        <input name="name[{{ user.code }}]" id="name_{{ user.code }}" value="{{ user.name }}">
+                        <input name="name[{{ user.code }}]" id="name_{{ user.code }}" value="{{ user.name }}"
+                               class="form-control">
                     </td>
                     <td>
-                        <input type="password" name="pass[{{ user.code }}]" id="pass_{{ user.code }}" value="">
-                        <button type="button" class="btn btn-default btn-xs"
-                                onclick="seePass('pass_{{ user.code }}', this)"
-                                title="Ver/Ocultar Senha"><i class="fa fa-eye-slash fa-lg"></i></button>
+                        <div class="eye-control">
+                            <input type="password" name="pass[{{ user.code }}]" id="pass_{{ user.code }}" value=""
+                                   class="form-control">
+                            <button type="button" class="btn btn-default btn-xs eye"
+                                    onclick="seePass('pass_{{ user.code }}', this)"
+                                    title="Ver/Ocultar Senha"><i class="fa fa-eye-slash fa-lg"></i></button>
+                        </div>
                     </td>
                     <td class="actions">
                         {% if user.code != userLogged.code %}
@@ -50,15 +54,18 @@
             <tfoot>
             <tr>
                 <td>
-                    <input name="code" id="code_new_user" value="" placeholder="Novo Usuário">
+                    <input name="code" id="code_new_user" value="" placeholder="Novo Usuário" class="form-control">
                 </td>
                 <td>
-                    <input name="name[new_user]" id="name_new_user" value="">
+                    <input name="name[new_user]" id="name_new_user" value="" class="form-control">
                 </td>
                 <td>
-                    <input type="password" name="pass[new_user]" id="pass_new_user" value="">
-                    <button type="button" class="btn btn-default btn-xs" onclick="seePass('pass_new_user', this)"
-                            title="Ver/Ocultar Senha"><i class="fa fa-eye-slash fa-lg"></i></button>
+                    <div class="eye-control">
+                        <input type="password" name="pass[new_user]" id="pass_new_user" value="" class="form-control">
+                        <button type="button" class="btn btn-default btn-xs eye"
+                                onclick="seePass('pass_new_user', this)"
+                                title="Ver/Ocultar Senha"><i class="fa fa-eye-slash fa-lg"></i></button>
+                    </div>
                 </td>
                 <td class="actions"></td>
             </tr>
